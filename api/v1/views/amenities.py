@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 """module state"""
+<<<<<<< HEAD
+from api.v1.views import app_views
+=======
 
 
 from api.v1.views
 import app_views
+>>>>>>> d2921b3b81ddd75296bcf40abc474158e8f0cda3
 from flask import jsonify, abort, request
 from models.amenity import Amenity
 from models import storage
@@ -14,8 +18,8 @@ def amenity():
     """state"""
     list_amenity = []
     for amenity_objs in storage.all('Amenity').values():
-        list_amenity.append(amenity_objs.to_dict())
-        return jsonify(list_amenity)
+            list_amenity.append(amenity_objs.to_dict())
+    return jsonify(list_amenity)
 
 
 @app_views.route('/amenities/<id>', methods=['GET', 'DELETE', 'PUT'])

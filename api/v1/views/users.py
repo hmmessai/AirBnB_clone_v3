@@ -20,7 +20,7 @@ def user(id=None):
      """
     list_user = []
     for user_objs in storage.all('User').values():
-            list_user.append(user_objs.to_dict())
+        list_user.append(user_objs.to_dict())
     return jsonify(list_user)
 
 

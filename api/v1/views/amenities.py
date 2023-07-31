@@ -1,9 +1,16 @@
 #!/usr/bin/python3
 """module state"""
+<<<<<<< HEAD
 from api.v1.views import app_views
+=======
+
+
+from api.v1.views
+import app_views
+>>>>>>> d2921b3b81ddd75296bcf40abc474158e8f0cda3
 from flask import jsonify, abort, request
-from models import storage
 from models.amenity import Amenity
+from models import storage
 
 
 @app_views.route('/amenities', methods=['GET'])

@@ -37,7 +37,7 @@ def amenity_delete(id=None):
     return jsonify(obj_amenity.to_dict()), 200
 
 
-@app_views.route('/amenities', methods=['POST'])
+@app_views.route('/amenities', methods=['GET', 'POST'])
 def amenity_post():
     """state post"""
     if request.json:

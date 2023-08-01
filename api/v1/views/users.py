@@ -7,6 +7,7 @@ from models.user import User
 
 
 @app_views.route('/users', methods=['GET'])
+@app_views.route('/users/', methods=['GET'])
 def user(id=None):
     """Show users
     ---

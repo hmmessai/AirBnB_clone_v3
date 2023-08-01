@@ -5,13 +5,16 @@ Creates a flask instance app and starts
 when it is called
 """
 from api.v1.views import app_views
-from flask import Flask
+from flask import Flask, jsonify
 from models import storage
 import os
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({"error": 404})
 
 @app.teardown_appcontext
 def teardown(exc):

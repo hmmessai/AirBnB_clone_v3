@@ -46,11 +46,11 @@ def review_del_put(review_id=None):
         if not do_put:
             return jsonify({"error": "Not a JSON"}), 400
         for k, v in do_put.items():
-            if (k is not "id" and
-                k is not "created_at" and
-                k is not "updated_at" and
-                k is not "user_id" and
-                    k is not "place_id"):
+            if (k != "id" and
+                k != "created_at" and
+                k != "updated_at" and
+                k != "user_id" and
+                k != "place_id"):
                 setattr(obj_review, k, v)
         obj_review.save()
         return jsonify(obj_review.to_dict()), 200

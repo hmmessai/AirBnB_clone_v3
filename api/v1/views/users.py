@@ -19,7 +19,7 @@ def user(id=None):
         description: Resource not found
      """
     list_user = []
-    for user_objs in storage.all('User').values():
+    for user_objs in storage.all(User).values():
         list_user.append(user_objs.to_dict())
     return jsonify(list_user)
 
@@ -42,7 +42,7 @@ def user_delete(id=None):
       400:
         description: Not a JSON
     """
-    obj_user = storage.get('User', id)
+    obj_user = storage.get(User, id)
     if obj_user is None:
         abort(404)
     if request.method == 'DELETE':

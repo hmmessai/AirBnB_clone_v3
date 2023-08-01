@@ -15,7 +15,7 @@ db = (getenv("HBNB_TYPE_STORAGE"), "json_file")
 def place_amenities(place_id=None):
     """GET method for amenities en place"""
     list_amenities = []
-    obj_place_am = storage.get("Place", place_id)
+    obj_place_am = storage.get(Place, place_id)
     if obj_place_am is None:
         abort(404)
     amenities = obj_place_am.amenities
@@ -28,8 +28,8 @@ def place_amenities(place_id=None):
                  methods=['DELETE'])
 def amenity_review_delete(place_id=None, amenity_id=None):
     """DELETE method for amenities en place"""
-    obj_place = storage.get("Place", place_id)
-    obj_amenity = storage.get("Amenity", amenity_id)
+    obj_place = storage.get(Place, place_id)
+    obj_amenity = storage.get(Amenity, amenity_id)
     if obj_amenity is None:
         abort(404)
     if obj_place is None:
@@ -48,8 +48,8 @@ def amenity_review_delete(place_id=None, amenity_id=None):
 @app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'])
 def amenity_place(place_id, amenity_id):
     """POST method for amenities en place"""
-    obj_place = storage.get("Place", place_id)
-    obj_amenity = storage.get("Amenity", amenity_id)
+    obj_place = storage.get(Place, place_id)
+    obj_amenity = storage.get(Amenity, amenity_id)
     if obj_place is None:
         abort(404)
     if obj_amenity is None:

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""module state"""
+"""Define Amenity routes
+"""
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models.amenity import Amenity
@@ -10,7 +11,7 @@ from models import storage
 def amenity():
     """state"""
     list_amenity = []
-    for amenity_objs in storage.all('Amenity').values():
+    for amenity_objs in storage.all(Amenity).values():
             list_amenity.append(amenity_objs.to_dict())
     return jsonify(list_amenity)
 
@@ -18,7 +19,7 @@ def amenity():
 @app_views.route('/amenities/<id>', methods=['GET', 'DELETE', 'PUT'])
 def amenity_delete(id=None):
     """state delete"""
-    obj_amenity = storage.get('Amenity', id)
+    obj_amenity = storage.get(Amenity, id)
     if obj_amenity is None:
         abort(404)
     if request.method == 'DELETE':

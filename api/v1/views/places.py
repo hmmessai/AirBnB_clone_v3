@@ -47,9 +47,9 @@ def place_methods(place_id=None):
             abort(400, "Not a JSON")
         do_put = request.get_json()
         for k, v in do_put.items():
-            if (k is not "id" and k is not "created_at" and
-               k is not "updated_at" and
-               k is not "user_id" and k is not "city_id"):
+            if (k != "id" and k != "created_at" and
+               k != "updated_at" and
+               k != "user_id" and k != "city_id"):
                 setattr(obj_place, k, v)
         obj_place.save()
         return (jsonify(obj_place.to_dict()), 200)

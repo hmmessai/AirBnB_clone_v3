@@ -47,6 +47,6 @@ def amenity_post():
             new_obj.save()
             return jsonify(new_obj.to_dict()), 201
         else:
-            return jsonify({'error': 'Missing name'}), 400
+            abort(400, 'Missing name')
     else:
-        return jsonify({'error': 'Not a JSON'}), 400
+        abort(400, 'Not a JSON')

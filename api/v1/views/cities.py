@@ -89,7 +89,7 @@ def cities_delete(city_id=None):
     return jsonify({}), 200
 
 
-@app_views.route('/cities/<city_id>', methods=['PUT'])
+@app_views.route('/cities/<city_id>', methods=['GET', 'PUT'])
 def city_put(city_id):
     """Cities
     ---
@@ -121,7 +121,8 @@ def city_put(city_id):
     return jsonify(obj_city.to_dict()), 200
 
 
-@app_views.route('/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'])
+@app_views.route('/states/<state_id>/cities/', methods=['GET', 'POST'])
 def city_post(state_id):
     """Create city
      ---

@@ -87,7 +87,7 @@ def state_post():
       400:
         description: Missind name
      """
-    if request.json:
+    if request.is_json:
         if "name" in request.json:
             do_post = request.get_json()
             new_obj = State(**do_post)

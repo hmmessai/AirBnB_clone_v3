@@ -4,10 +4,11 @@
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models.city import City
+from models.state import State
 from models import storage
 
-
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
+@app_views.route('/states/<state_id>/cities/', methods=['GET'])
 def state_id(state_id=None):
     """Cities
     ---
@@ -26,11 +27,11 @@ def state_id(state_id=None):
         description: Not a JSON
     """
     list_cities = []
-    state_obj = storage.get('State', str(state_id))
+    state_obj = storage.get(State, str(state_id))
     if state_obj is None:
         abort(404)
     else:
-        for city_obj in storage.all("City").values():
+        for city_obj in storage.all(City).values():
             if city_obj.state_id == str(state_id):
                 list_cities.append(city_obj.to_dict())
         return jsonify(list_cities)
@@ -54,7 +55,7 @@ def cities(city_id=None):
       400:
         description: Not a JSON
     """
-    state_objs = storage.get("City", city_id)
+    state_objs = storage.get(City, city_id)
     if not state_objs:
         abort(404)
     else:
@@ -79,7 +80,7 @@ def cities_delete(city_id=None):
       400:
         description: Not a JSON
     """
-    obj_city = storage.get('City', city_id)
+    obj_city = storage.get(City, city_id)
     if obj_city is None:
         abort(404)
     obj_city.delete()
@@ -105,15 +106,15 @@ def city_put(city_id):
       400:
         description: Not a JSON
     """
-    obj_city = storage.get('City', city_id)
+    obj_city = storage.get(City, city_id)
     if obj_city is None:
         abort(404)
     do_put = request.get_json()
     if not request.get_json():
         return jsonify({"error": "Not a JSON"}), 400
     for k, v in do_put.items():
-        if k is not "id" and k is not "created_at":
-            if k is not "updated_at" and k is not "state_id":
+        if k != "id" and k != "created_at":
+            if k != "updated_at" and k != "state_id":
                 setattr(obj_city, k, v)
     obj_city.save()
     return jsonify(obj_city.to_dict()), 200
@@ -140,7 +141,7 @@ def city_post(state_id):
        400:
          description: Missind name
     """
-    obj_state = storage.get("State", state_id)
+    obj_state = storage.get(State, state_id)
     if obj_state is None:
         abort(404)
     if request.json:

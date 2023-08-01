@@ -26,13 +26,8 @@ def state(id=None):
         else:
             return jsonify(state_objs.to_dict())
     for state_objs in storage.all('State').values():
-<<<<<<< HEAD
-            list_state.append(state_objs.to_dict())
-    return jsonify(list_state)
-=======
         list_state.append(state_objs.to_dict())
         return jsonify(list_state)
->>>>>>> d2921b3b81ddd75296bcf40abc474158e8f0cda3
 
 
 @app_views.route('/states/<id>', methods=['GET', 'DELETE', 'PUT'])

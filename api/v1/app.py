@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-"""API app construction"""
+"""API app construction
+
+Creates a flask instance app and starts
+when it is called
+"""
 
 
 from api.v1.views import app_views
@@ -8,7 +12,7 @@ from models import storage
 
 
 app = Flask(__name__)
-app.register_bluprint(app_views)
+app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
@@ -18,6 +22,7 @@ def teardown():
 
 
 if __name__ == '__main__':
+    """Starts app when called up on"""
     hostvar = '0.0.0.0'
     portvar = '5000'
     if os.getenv('HBNB_API_HOST'):

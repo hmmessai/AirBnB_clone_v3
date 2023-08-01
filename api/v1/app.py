@@ -4,19 +4,17 @@
 Creates a flask instance app and starts
 when it is called
 """
-
-
 from api.v1.views import app_views
 from flask import Flask
 from models import storage
-
+import os
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def teardown():
+def teardown(exc):
     """Teardown app"""
     storage.close()
 

@@ -7,6 +7,7 @@ from models.state import State
 
 
 @app_views.route('/states')
+@app_views.route('/states/')
 def state(id=None):
     """Show states
     ---
@@ -20,14 +21,14 @@ def state(id=None):
      """
     list_state = []
     if id:
-        state_objs = storage.get('State', id)
+        state_objs = storage.get(State, id)
         if state_objs is None:
             abort(404)
         else:
             return jsonify(state_objs.to_dict())
-    for state_objs in storage.all('State').values():
+    for state_objs in storage.all(State).values():
         list_state.append(state_objs.to_dict())
-        return jsonify(list_state)
+    return jsonify(list_state)
 
 
 @app_views.route('/states/<id>', methods=['GET', 'DELETE', 'PUT'])
@@ -48,7 +49,7 @@ def state_delete(id=None):
       400:
         description: Not a JSON
      """
-    obj_state = storage.get('State', id)
+    obj_state = storage.get(State, id)
     if obj_state is None:
         abort(404)
     if request.method == 'DELETE':
@@ -60,13 +61,14 @@ def state_delete(id=None):
         do_put = request.get_json()
         if not do_put:
             abort(400, "Not a JSON")
-        [setattr(obj_state, k, v) for k, v in do_put.items()
-         if k not in ["id", "created_at", "updated_at"]]
-    obj_state.save()
-    return jsonify(obj_state.to_dict()), 200
+        for k, v in do_put.items():
+            if k not in ["id", "created_at", "updated_at"]:
+                setattr(obj_state, k, v)
+                obj_state.save()
+        return (jsonify(obj_state.to_dict()), 200)
 
-
-@app_views.route('/states', methods=['POST'])
+@app_views.route('/states/', methods=['GET', 'POST'])
+@app_views.route('/states', methods=['GET', 'POST'])
 def state_post():
     """Create states
     ---

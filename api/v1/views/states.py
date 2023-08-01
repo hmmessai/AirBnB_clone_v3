@@ -65,7 +65,8 @@ def state_delete(id=None):
             if k not in ["id", "created_at", "updated_at"]:
                 setattr(obj_state, k, v)
                 obj_state.save()
-        return (jsonify(obj_state.to_dict()), 200)
+    return (jsonify(obj_state.to_dict()), 200)
+
 
 @app_views.route('/states/', methods=['GET', 'POST'])
 @app_views.route('/states', methods=['GET', 'POST'])
